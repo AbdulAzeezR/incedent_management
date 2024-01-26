@@ -1,0 +1,26 @@
+ProductID,Category_CategoryID,ProductName,UnitsInStock
+1,1,Chai,39
+2,1,Chang,17
+3,2,Aniseed Syrup,13
+4,2,Chef Anton's Cajun Seasoning,53
+5,2,Chef Anton's Gumbo Mix,0
+6,2,Grandma's Boysenberry Spread,120
+7,7,Uncle Bob's Organic Dried Pears,15
+8,2,Northwoods Cranberry Sauce,6
+9,6,Mishi Kobe Niku,29
+10,8,Ikura,31
+11,4,Queso Cabrales,22
+12,4,Queso Manchego La Pastora,86
+13,8,Konbu,24
+14,7,Tofu,35
+15,2,Genen Shouyu,39
+16,3,Pavlova,29
+17,6,Alice Mutton,0
+18,8,Carnarvon Tigers,42
+19,3,Teatime Chocolate Biscuits,25
+20,3,Sir Rodney's Marmalade,40
+21,3,Sir Rodney's Scones,3
+22,5,Gustaf's Knäckebröd,104
+23,5,Tunnbröd,61
+24,1,Guaraná Fantástica,20
+25,3,NuNuCa Nuß-Nougat-Creme,76
