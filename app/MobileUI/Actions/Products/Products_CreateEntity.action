@@ -1,0 +1,19 @@
+{
+    "CreateLinks": [],
+    "OnFailure": "/MobileUI/Actions/CreateEntityFailureMessage.action",
+    "OnSuccess": "/MobileUI/Actions/CreateEntitySuccessMessage.action",
+    "Properties": {
+        "ProductID": "#Control:ProductID/#Value",
+        "ProductName": "#Control:ProductName/#Value",
+        "UnitsInStock": "#Control:UnitsInStock/#Value",
+        "Category_CategoryID": "#Control:Category_CategoryID/#SelectedValue"
+    },
+    "Target": {
+        "EntitySet": "Products",
+        "Service": "/MobileUI/Services/service1.service"
+    },
+    "ActionResult": {
+        "_Name": "create"
+    },
+    "_Type": "Action.Type.ODataService.CreateEntity"
+}

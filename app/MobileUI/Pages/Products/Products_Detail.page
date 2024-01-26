@@ -1,0 +1,76 @@
+{
+	"Caption": "Products Detail",
+	"DesignTimeTarget": {
+		"Service": "/MobileUI/Services/service1.service",
+		"EntitySet": "Products",
+		"QueryOptions": ""
+	},
+	"ActionBar": {
+		"Items": [
+			{
+				"OnPress": "/MobileUI/Rules/Products/NavToProducts_Edit.js",
+				"Position": "Right",
+				"SystemItem": "Edit"
+			},
+			{
+				"OnPress": "/MobileUI/Rules/Products/Products_DeleteConfirmation.js",
+				"Position": "Right",
+				"SystemItem": "Trash"
+			}
+		]
+	},
+	"Controls": [
+		{
+			"Sections": [
+				{
+					"ObjectHeader": {
+						"Tags": [],
+						"DetailImage": "",
+						"HeadlineText": "{ProductName}",
+						"Subhead": "{ProductID}",
+						"BodyText": "",
+						"Footnote": "{Category_CategoryID}",
+						"Description": "{UnitsInStock}",
+						"StatusText": "",
+						"StatusImage": "",
+						"SubstatusImage": "",
+						"SubstatusText": ""
+					},
+					"_Type": "Section.Type.ObjectHeader"
+				},
+				{
+					"KeyAndValues": [
+						{
+							"KeyName": "ProductID",
+							"Value": "{ProductID}"
+						},
+						{
+							"KeyName": "ProductName",
+							"Value": "{ProductName}"
+						},
+						{
+							"KeyName": "UnitsInStock",
+							"Value": "{UnitsInStock}"
+						},
+						{
+							"KeyName": "Category_CategoryID",
+							"Value": "{Category_CategoryID}"
+						}
+					],
+					"Layout": {
+						"NumberOfColumns": 2
+					},
+					"MaxItemCount": 1,
+					"_Name": "SectionKeyValue0",
+					"_Type": "Section.Type.KeyValue"
+				}
+			],
+			"DataSubscriptions": [],
+			"_Type": "Control.Type.SectionedTable",
+			"_Name": "SectionedTable"
+		}
+	],
+	"_Type": "Page",
+	"_Name": "Products_Detail",
+	"PrefersLargeCaption": true
+}

@@ -1,0 +1,20 @@
+{
+    "_Type": "Action.Type.ODataService.UpdateEntity",
+    "Target": {
+        "EntitySet": "Products",
+        "Service": "/MobileUI/Services/service1.service",
+        "ReadLink": "{@odata.readLink}"
+    },
+    "Properties": {
+        "ProductID": "#Control:ProductID/#Value",
+        "ProductName": "#Control:ProductName/#Value",
+        "UnitsInStock": "#Control:UnitsInStock/#Value",
+        "Category_CategoryID": "#Control:Category_CategoryID/#SelectedValue"
+    },
+    "UpdateLinks": [],
+    "ActionResult": {
+        "_Name": "update"
+    },
+    "OnSuccess": "/MobileUI/Actions/UpdateEntitySuccessMessage.action",
+    "OnFailure": "/MobileUI/Actions/UpdateEntityFailureMessage.action"
+}

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="bookshopService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Categories" EntityType="bookshopService.Categories">
+                    <NavigationPropertyBinding Path="Products" Target="Products"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Categories"/>
+                </EntitySet>
+                <EntitySet Name="Products" EntityType="bookshopService.Products">
+                    <NavigationPropertyBinding Path="Category" Target="Categories"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="Categories">
+                <Key>
+                    <PropertyRef Name="CategoryID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="CategoryID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="CategoryName" Type="Edm.String" MaxLength="100"/>
+                <Property Name="Description" Type="Edm.String"/>
+                <NavigationProperty Name="Products" Type="Collection(bookshopService.Products)" Partner="Category"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="bookshopService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="bookshopService.Categories"/>
+            </EntityType>
+            <EntityType Name="Products">
+                <Key>
+                    <PropertyRef Name="ProductID"/>
+                </Key>
+                <Property Name="ProductID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="ProductName" Type="Edm.String" MaxLength="100"/>
+                <Property Name="UnitsInStock" Type="Edm.Int32"/>
+                <NavigationProperty Name="Category" Type="bookshopService.Categories" Partner="Products">
+                    <ReferentialConstraint Property="Category_CategoryID" ReferencedProperty="CategoryID"/>
+                </NavigationProperty>
+                <Property Name="Category_CategoryID" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+            </EntityType>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="bookshopService.Categories"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="bookshopService.Categories"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="bookshopService.Categories"/>
+                <ReturnType Type="bookshopService.Categories"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="bookshopService.Categories"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="bookshopService.Categories"/>
+            </Action>
+            <Annotations Target="bookshopService.EntityContainer/Categories">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="bookshopService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="bookshopService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="bookshopService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="bookshopService.Categories/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="bookshopService.Categories/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="bookshopService.Categories/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="bookshopService.Categories/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="bookshopService.DraftAdministrativeData">
+                <Annotation Term="Common.Label" String="{i18n>
+                    Draft_DraftAdministrativeData}"/>
+                </Annotations>
+                <Annotations Target="bookshopService.DraftAdministrativeData/DraftUUID">
+                    <Annotation Term="UI.Hidden" Bool="true"/>
+                    <Annotation Term="Common.Label" String="{i18n>
+                        Draft_DraftUUID}"/>
+                        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="bookshopService.DraftAdministrativeData/CreationDateTime">
+                        <Annotation Term="Common.Label" String="{i18n>
+                            Draft_CreationDateTime}"/>
+                        </Annotations>
+                        <Annotations Target="bookshopService.DraftAdministrativeData/CreatedByUser">
+                            <Annotation Term="Common.Label" String="{i18n>
+                                Draft_CreatedByUser}"/>
+                            </Annotations>
+                            <Annotations Target="bookshopService.DraftAdministrativeData/DraftIsCreatedByMe">
+                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                <Annotation Term="Common.Label" String="{i18n>
+                                    Draft_DraftIsCreatedByMe}"/>
+                                </Annotations>
+                                <Annotations Target="bookshopService.DraftAdministrativeData/LastChangeDateTime">
+                                    <Annotation Term="Common.Label" String="{i18n>
+                                        Draft_LastChangeDateTime}"/>
+                                    </Annotations>
+                                    <Annotations Target="bookshopService.DraftAdministrativeData/LastChangedByUser">
+                                        <Annotation Term="Common.Label" String="{i18n>
+                                            Draft_LastChangedByUser}"/>
+                                        </Annotations>
+                                        <Annotations Target="bookshopService.DraftAdministrativeData/InProcessByUser">
+                                            <Annotation Term="Common.Label" String="{i18n>
+                                                Draft_InProcessByUser}"/>
+                                            </Annotations>
+                                            <Annotations Target="bookshopService.DraftAdministrativeData/DraftIsProcessedByMe">
+                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                <Annotation Term="Common.Label" String="{i18n>
+                                                    Draft_DraftIsProcessedByMe}"/>
+                                                </Annotations>
+                                            </Schema>
+                                        </edmx:DataServices>
+                                    </edmx:Edmx>
